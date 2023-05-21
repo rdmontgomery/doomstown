@@ -19,8 +19,8 @@
         <span class="label">Seconds</span>
       </div>
     </div>
-    <div v-else>
-      <h1>Well done.</h1>
+    <div v-else class="timer">
+      <h1>Well done</h1>
       <img src="@/assets/verticaljamestown.jpg" alt="Countdown Completed!"
         :style="`transform: rotate(${rotation}deg) scale(${scale})`" height="400" />
     </div>
@@ -32,10 +32,10 @@ export default {
   data() {
     return {
       countdown: null,
-      // countdownDate: new Date('June 22, 2023 22:00:00 GMT-0500'), // Set the countdown date and time
-      countdownDate: new Date(new Date().getTime() + 1000),
+      countdownDate: new Date('June 22, 2023 22:00:00 GMT-0500'), // Set the countdown date and time
       timeRemaining: 0,
-      rotation: 0,
+      rotation: -90,
+      rotationSpeed: .0000001,
       scale: 0.9
     };
   },
@@ -67,7 +67,10 @@ export default {
       }, 1000);
     }
     setInterval(() => {
-      this.rotation += .1;
+      this.rotation += this.rotationSpeed;
+      if (this.rotationSpeed < 5) {
+        this.rotationSpeed += .0001;
+      }
     }, 1);
   },
   beforeUnmount() {
