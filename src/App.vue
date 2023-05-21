@@ -32,7 +32,8 @@ export default {
   data() {
     return {
       countdown: null,
-      countdownDate: new Date('June 22, 2023 22:00:00 GMT-0500'), // Set the countdown date and time
+      rotator: null,
+      countdownDate: new Date('June 22, 2023 22:00:00 GMT-0500'),
       timeRemaining: 0,
       rotation: -90,
       rotationSpeed: .0000001,
@@ -66,10 +67,13 @@ export default {
         }
       }, 1000);
     }
-    setInterval(() => {
-      this.rotation += this.rotationSpeed;
-      if (this.rotationSpeed < 5) {
-        this.rotationSpeed += .0001;
+    this.rotator = setInterval(() => {
+      if (this.rotationSpeed < 3) {
+        this.rotation += this.rotationSpeed;
+        this.rotationSpeed += .0004;
+      } else {
+        this.rotation = 90;
+        clearInterval(this.rotator)
       }
     }, 1);
   },
