@@ -1,31 +1,28 @@
 <template>
   <div class="container">
-    <h1>Jamestown Lady Problems Doomsday Timer</h1>
-    <div class="timer" v-if="countdownDate">
-      <div v-if="timeRemaining >= 0">
-        <div>
-          <span class="value">{{ days }}</span>
-          <span class="label">Days</span>
-        </div>
-        <div>
-          <span class="value">{{ hours }}</span>
-          <span class="label">Hours</span>
-        </div>
-        <div>
-          <span class="value">{{ minutes }}</span>
-          <span class="label">Minutes</span>
-        </div>
-        <div>
-          <span class="value">{{ seconds }}</span>
-          <span class="label">Seconds</span>
-        </div>
+    <div v-if="timeRemaining > 0" class="timer">
+      <h1>Jamestown Lady Problems Doomsday Timer</h1>
+      <div>
+        <span class="value">{{ days }}</span>
+        <span class="label">Days</span>
       </div>
-      <div v-else>
-        <span class="completed">Countdown Completed!</span>
+      <div>
+        <span class="value">{{ hours }}</span>
+        <span class="label">Hours</span>
+      </div>
+      <div>
+        <span class="value">{{ minutes }}</span>
+        <span class="label">Minutes</span>
+      </div>
+      <div>
+        <span class="value">{{ seconds }}</span>
+        <span class="label">Seconds</span>
       </div>
     </div>
     <div v-else>
-      <span class="completed">Invalid countdown date</span>
+      <h1>Well done.</h1>
+      <img src="@/assets/verticaljamestown.jpg" alt="Countdown Completed!"
+        :style="`transform: rotate(${rotation}deg) scale(${scale})`" height="400" />
     </div>
   </div>
 </template>
@@ -35,8 +32,11 @@ export default {
   data() {
     return {
       countdown: null,
-      countdownDate: new Date('June 22, 2023 22:00:00 GMT-0500'), // Set the countdown date and time
+      // countdownDate: new Date('June 22, 2023 22:00:00 GMT-0500'), // Set the countdown date and time
+      countdownDate: new Date(new Date().getTime() + 1000),
       timeRemaining: 0,
+      rotation: 0,
+      scale: 0.9
     };
   },
   computed: {
@@ -66,6 +66,9 @@ export default {
         }
       }, 1000);
     }
+    setInterval(() => {
+      this.rotation += .1;
+    }, 1);
   },
   beforeUnmount() {
     clearInterval(this.countdown);
