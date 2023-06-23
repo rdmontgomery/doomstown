@@ -33,7 +33,7 @@ export default {
     return {
       countdown: null,
       rotator: null,
-      countdownDate: new Date('June 22, 2023 22:00:00 GMT-0500'),
+      countdownDate: new Date('June 27, 2023 08:00:00 GMT-0500'),
       timeRemaining: 0,
       rotation: -90,
       rotationSpeed: .0000001,
